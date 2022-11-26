@@ -36,7 +36,7 @@
 cmake_minimum_required(VERSION 2.8.11)
 
 # installation directory ( has to be before `project()` )
-set(CMAKE_INSTALL_PREFIX "/opt/hpipm" CACHE STRING "Installation path")
+set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib)
 
 project(hpipm C)
 
@@ -338,10 +338,12 @@ target_include_directories(hpipm
 
 target_link_libraries(hpipm blasfeo)
 
+include(GNUInstallDirs)
+
 install(TARGETS hpipm EXPORT hpipmConfig
-	LIBRARY DESTINATION lib
-	ARCHIVE DESTINATION lib
-	RUNTIME DESTINATION bin)
+  	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  	RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}/hpipm)
 
 install(EXPORT hpipmConfig DESTINATION cmake)
 
